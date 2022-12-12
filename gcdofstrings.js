@@ -5,21 +5,17 @@
  */
 
 var gcdOfStrings =function largestDivisor(str1, str2) {
-  // Find the length of the smaller string
-  let n = Math.min(str1.length, str2.length);
-
-  // Loop from n to 1 and find the largest string x that divides both str1 and str2
-  for (let i = n; i >= 1; i--) {
-    // Check if the substrings of length i at the beginning and end of str1 are equal
-    if (str1.substring(0, i) === str1.substring(str1.length - i)) {
-      // Check if the substrings of length i at the beginning and end of str2 are equal
-      if (str2.substring(0, i) === str2.substring(str2.length - i)) {
-        // If both conditions are met, return the substring of length i
-        return str1.substring(0, i);
+    // Iterate over substrings of str1 in reverse order
+    for (let i = str1.length; i >= 0; i--) {
+      let sub = str1.substring(0, i);
+  
+      // Check if the substring divides str1 and str2
+      if (str1.split(sub).join("") === "" && str2.split(sub).join("") === "") {
+        return sub;
       }
     }
+  
+    // If no common divisor is found, return an empty string
+    return "";
   }
-
-  // If no string x is found, return the empty string
-  return "";
-}
+  
